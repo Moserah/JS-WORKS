@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/pword.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="inputBox">
+        <div class="alertBox"></div>
+        <h2>Random Password Generator</h2>
+        <input type="text" name="" placeholder="Create Password" id="password" readonly>
+        <i class="fa fa-copy copy">COPY</i>
+        <button id="btn">Generate Password</button>
+        <button id="btn2">Clear</button>
+    </div>
+
+    <script>
+        let passwordGenerator = document.getElementById("btn");
+        let reset = document.getElementById("btn2");
+        let alertBox = document.querySelector(".alertBox")
+        passwordGenerator.addEventListener("click", function getPssword() {
+            let chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+?><:{}[],./;'=-'"
+            let passwordLength = 16;
+            let password = '';
+
+            for (let i = 0; i < passwordLength; i++) {
+                let randomNumber = Math.floor(Math.random() * chars.length);
+                password += chars.substring(randomNumber, randomNumber + 1)
+            }
+            document.getElementById("password").value = password;
+            alertBox.innerHTML = `password | ${password} | copied`
+        })
+        
+
+        let copyPassword = document.querySelector(".copy");
+        copyPassword.addEventListener("click", function(){
+            copyPassword = document.getElementById("password");
+            copyPassword.select();
+            copyPassword.setSelectionRange(0,9999);
+            document.execCommand("copy");
+            alertBox.classList.toggle("active");
+            setTimeout(() => {
+                alertBox.classList.toggle("active");
+            }, 1000);
+        })
+        reset.addEventListener("click",function(){
+            document.getElementById("password").value = ''
+        })
+    </script>
+</body>
+
+</html>
